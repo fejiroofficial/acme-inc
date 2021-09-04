@@ -27,6 +27,7 @@ function DataTable({ columns, rows, onRowClick, onSelectionChange }) {
     setIsCheckAll(!isCheckAll);
     if (isCheckAll) {
       setIsCheck([]);
+      setIsSelected([])
       onSelectionChange();
     } else {
       onSelectionChange("All");
