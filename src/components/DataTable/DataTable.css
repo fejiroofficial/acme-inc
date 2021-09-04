@@ -1,0 +1,47 @@
+.Table {
+  width: fit-content;
+  border-radius: 8px;
+  border: 1px solid lightgrey;
+}
+
+.Table-nav {
+  height: 51px;
+  border-bottom: 1px solid lightgrey;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.Table-nav li {
+  margin: 0 1rem;
+}
+
+.Nav-link {
+  display: block;
+  width: 60px;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.Nav-link.active {
+  background-color: transparent;
+  border-bottom: 2px solid #6c4af2;
+  color: #6c4af2;
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.Check-column {
+  width: 80px;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
