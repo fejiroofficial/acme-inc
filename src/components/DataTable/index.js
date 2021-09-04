@@ -1,7 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import Checkbox from "../Checkbox";
 import "./DataTable.css";
 
-function DataTable({ columns, rows }) {
+function DataTable({ columns, rows, onRowClick, onSelectionChange }) {
+  // keeps track of selected checkboxes
+  const [isCheckAll, setIsCheckAll] = useState(false);
+  const [isCheck, setIsCheck] = useState([]);
+
+  // keeps hold of selected data to return
+  const [isSelected, setIsSelected] = useState([]);
+
+  const handleSelectOne = (e, id, photoUrl) => {
+    const { checked } = e.target;
+    if (checked) {
+      setIsCheck([...isCheck, id]);
+      setIsSelected([...isSelected, photoUrl]);
+      onSelectionChange([...isSelected, photoUrl]);
+    } else {
+      setIsCheck(isCheck.filter((item) => item !== id));
+      setIsSelected(isSelected.filter((item) => item !== photoUrl));
+      onSelectionChange(isSelected.filter((item) => item !== photoUrl));
+    }
+  };
+
+  const handleSelectAll = (e) => {
+    setIsCheckAll(!isCheckAll);
+    if (isCheckAll) {
+      setIsCheck([]);
+      onSelectionChange();
+    } else {
+      onSelectionChange("All");
+      setIsCheck(rows.map((li) => li.id));
+      setIsSelected(rows.map((li) => li.url));
+    }
+  };
+
   return (
     <div className="Table">
       <ul className="Table-nav" id="pills-tab" role="tablist">
@@ -15,7 +48,13 @@ function DataTable({ columns, rows }) {
         <tbody>
           <tr>
             <th className="Check-column">
-              <input type="checkbox" />
+              <Checkbox
+                type="checkbox"
+                name="selectAll"
+                id="selectAll"
+                handleClick={handleSelectAll}
+                isChecked={isCheckAll}
+              />
             </th>
             {columns.map((column) => (
               <th key={column.id} width={column.width}>
@@ -24,9 +63,19 @@ function DataTable({ columns, rows }) {
             ))}
           </tr>
           {rows.map((row, index) => (
-            <tr id={row.id} key={`${row.albumId}-{row.id}-${index}`}>
-              <td className="Check-column">
-                <input type="checkbox" />
+            <tr
+              key={`${row.albumId}-{row.id}-${index}`}
+              onClick={() => onRowClick(row, row.id)}
+            >
+              <td className="Check-column" onClick={(e) => e.stopPropagation()}>
+                <Checkbox
+                  type="checkbox"
+                  name={row.title}
+                  id={row.id}
+                  photo={row.url}
+                  handleClick={handleSelectOne}
+                  isChecked={isCheck.includes(row.id)}
+                />
               </td>
               {Object.keys(row).map(
                 (item, index) =>

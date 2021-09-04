@@ -39,6 +39,12 @@ function Home(props) {
       setPage((page) => page + 1);
     }
   };
+  const onRowClick = (rowData, rowIndex) => {
+    console.log("data event gotten from click", rowIndex, rowData);
+  };
+  const onSelectionChange = (selected) => {
+    console.log("data event gotten from checkbox", selected);
+  };
   return (
     <div className="Home">
       <DataTable
@@ -69,9 +75,13 @@ function Home(props) {
           },
         ]}
         rows={photos}
+        onRowClick={onRowClick}
+        onSelectionChange={onSelectionChange}
       />
       {photos.length ? (
-        <div className="Loading" ref={intersectionRef}>...loading</div>
+        <div className="Loading" ref={intersectionRef}>
+          ...loading
+        </div>
       ) : (
         ""
       )}
