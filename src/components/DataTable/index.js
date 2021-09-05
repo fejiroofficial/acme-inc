@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Checkbox from "../Checkbox";
+import DataTableItem from "./DataTableItem";
 import "./DataTable.css";
 
 function DataTable({ columns, rows, onRowClick, onSelectionChange }) {
@@ -27,7 +28,7 @@ function DataTable({ columns, rows, onRowClick, onSelectionChange }) {
     setIsCheckAll(!isCheckAll);
     if (isCheckAll) {
       setIsCheck([]);
-      setIsSelected([])
+      setIsSelected([]);
       onSelectionChange();
     } else {
       onSelectionChange("All");
@@ -50,6 +51,7 @@ function DataTable({ columns, rows, onRowClick, onSelectionChange }) {
           <tr>
             <th className="Check-column">
               <Checkbox
+                className="XXX"
                 type="checkbox"
                 name="selectAll"
                 id="selectAll"
@@ -64,25 +66,13 @@ function DataTable({ columns, rows, onRowClick, onSelectionChange }) {
             ))}
           </tr>
           {rows.map((row, index) => (
-            <tr
+            <DataTableItem
               key={`${row.albumId}-{row.id}-${index}`}
-              onClick={() => onRowClick(row, row.id)}
-            >
-              <td className="Check-column" onClick={(e) => e.stopPropagation()}>
-                <Checkbox
-                  type="checkbox"
-                  name={row.title}
-                  id={row.id}
-                  photo={row.url}
-                  handleClick={handleSelectOne}
-                  isChecked={isCheck.includes(row.id)}
-                />
-              </td>
-              {Object.keys(row).map(
-                (item, index) =>
-                  item !== "id" && <td key={`${item}-${index}`}>{row[item]}</td>
-              )}
-            </tr>
+              row={row}
+              onRowClick={onRowClick}
+              handleSelectOne={handleSelectOne}
+              isCheck={isCheck}
+            />
           ))}
         </tbody>
       </table>
