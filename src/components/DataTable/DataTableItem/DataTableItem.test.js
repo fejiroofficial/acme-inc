@@ -10,11 +10,12 @@ const row = {
 };
 
 const isCheck = [];
+const isNumeric = []
 test("checks and sends change event", () => {
   const onRowClick = jest.fn();
   const tbody = document.createElement("tbody");
   const { container } = render(
-    <DataTableItem row={row} isCheck={isCheck} onRowClick={onRowClick} />,
+    <DataTableItem row={row} isCheck={isCheck} onRowClick={onRowClick} isNumeric={isNumeric} />,
     {
       container: document.body.appendChild(tbody),
     }
