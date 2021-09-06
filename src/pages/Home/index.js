@@ -19,9 +19,7 @@ function Home(props) {
           setPhotos((photos) => [...photos, ...data]);
         }
       } catch (error) {
-        if (error.response.data) {
-          alert("Data failed to fetch");
-        }
+        console.log("Data failed to fetch");
       }
     };
     fetchData();
@@ -47,47 +45,49 @@ function Home(props) {
   };
   return (
     <div className="Home">
-      <DataTable
-        columns={[
-          {
-            id: "album",
-            label: "AlbumId",
-            numeric: false,
-            width: "200px",
-          },
-          {
-            id: "id",
-            label: "Id",
-            numeric: false,
-            width: "200px",
-          },
-          {
-            id: "title",
-            label: "Title",
-            numeric: false,
-            width: "900px",
-          },
-          {
-            id: "url",
-            label: "Url",
-            numeric: false,
-            width: "900px",
-          },
-          {
-            id: "thumbnail",
-            label: "Thumbnail",
-            numeric: false,
-            width: "900px",
-          },
-        ]}
-        rows={photos}
-        onRowClick={onRowClick}
-        onSelectionChange={onSelectionChange}
-      />
       {photos.length ? (
-        <div className="Loading" ref={intersectionRef}>
-          ...loading
-        </div>
+        <>
+          <DataTable
+            columns={[
+              {
+                id: "album",
+                label: "AlbumId",
+                numeric: false,
+                width: "200px",
+              },
+              {
+                id: "id",
+                label: "Id",
+                numeric: false,
+                width: "200px",
+              },
+              {
+                id: "title",
+                label: "Title",
+                numeric: false,
+                width: "900px",
+              },
+              {
+                id: "url",
+                label: "Url",
+                numeric: false,
+                width: "900px",
+              },
+              {
+                id: "thumbnail",
+                label: "Thumbnail",
+                numeric: false,
+                width: "900px",
+              },
+            ]}
+            rows={photos}
+            onRowClick={onRowClick}
+            onSelectionChange={onSelectionChange}
+          />
+          <div className="Loading" ref={intersectionRef}>
+            ...loading
+          </div>
+        </>
       ) : (
         ""
       )}

@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, getBy } from "@testing-library/react";
 import DataTable from ".";
 
 const columns = [
