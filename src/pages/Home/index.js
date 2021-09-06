@@ -20,7 +20,7 @@ function Home(props) {
         }
       } catch (error) {
         if (error.response.data) {
-          alert(error);
+          alert("Data failed to fetch");
         }
       }
     };
@@ -52,7 +52,13 @@ function Home(props) {
           {
             id: "album",
             label: "AlbumId",
-            numeric: true,
+            numeric: false,
+            width: "200px",
+          },
+          {
+            id: "id",
+            label: "Id",
+            numeric: false,
             width: "200px",
           },
           {

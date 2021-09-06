@@ -1,7 +1,13 @@
 import React from "react";
 import Checkbox from "../../Checkbox";
 
-function DataTableItem({ row, onRowClick, handleSelectOne, isCheck }) {
+function DataTableItem({
+  row,
+  onRowClick,
+  handleSelectOne,
+  isCheck,
+  isNumeric,
+}) {
   return (
     <tr onClick={() => onRowClick(row, row.id)}>
       <td className="Check-column" onClick={(e) => e.stopPropagation()}>
@@ -14,10 +20,16 @@ function DataTableItem({ row, onRowClick, handleSelectOne, isCheck }) {
           isChecked={isCheck.includes(row.id)}
         />
       </td>
-      {Object.keys(row).map(
-        (item, index) =>
-          item !== "id" && <td key={`${item}-${index}`}>{row[item]}</td>
-      )}
+      {Object.keys(row).map((item, index) => (
+        <td
+          style={{
+            textAlign: isNumeric.includes(index) ? "right" : "left",
+          }}
+          key={`${item}-${index}`}
+        >
+          {row[item]}
+        </td>
+      ))}
     </tr>
   );
 }

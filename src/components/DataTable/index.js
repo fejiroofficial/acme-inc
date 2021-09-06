@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Checkbox from "../Checkbox";
 import DataTableItem from "./DataTableItem";
 import "./DataTable.css";
 
 function DataTable({ columns, rows, onRowClick, onSelectionChange }) {
+  const [isNumeric, setIsNumeric] = useState([]);
   // keeps track of selected checkboxes
   const [isCheckAll, setIsCheckAll] = useState(false);
   const [isCheck, setIsCheck] = useState([]);
+
+  useEffect(() => {
+    // handle numeric columns
+    let numeric = []
+    columns.forEach((column, index) => {
+      if (column.numeric) {
+        numeric.push(index)
+      }
+    });
+    setIsNumeric(numeric)
+  }, [columns]);
 
   // keeps hold of selected data to return
   const [isSelected, setIsSelected] = useState([]);
@@ -51,7 +63,6 @@ function DataTable({ columns, rows, onRowClick, onSelectionChange }) {
           <tr>
             <th className="Check-column">
               <Checkbox
-                className="XXX"
                 type="checkbox"
                 name="selectAll"
                 id="selectAll"
@@ -67,11 +78,12 @@ function DataTable({ columns, rows, onRowClick, onSelectionChange }) {
           </tr>
           {rows.map((row, index) => (
             <DataTableItem
-              key={`${row.albumId}-{row.id}-${index}`}
+              key={`${row.albumId}-${row.id}-${index}`}
               row={row}
               onRowClick={onRowClick}
               handleSelectOne={handleSelectOne}
               isCheck={isCheck}
+              isNumeric={isNumeric}
             />
           ))}
         </tbody>

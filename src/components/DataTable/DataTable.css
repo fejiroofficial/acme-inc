@@ -12,6 +12,7 @@
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  margin-bottom: 30px;
 }
 
 .Table-nav li {
@@ -40,8 +41,17 @@ table {
   width: 80px;
 }
 
-td, th {
-  border: 1px solid #dddddd;
+tr {
+  border-top: 1px solid #dddddd;
+}
+
+tr:first-child {
+  border: none;
+  height: 70px;
+}
+
+td,
+th {
   text-align: left;
   padding: 8px;
 }
